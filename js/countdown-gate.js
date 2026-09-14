@@ -12,7 +12,7 @@
    ========================================================================== */
 
 (function () {
-  const REVEAL_AT = new Date('2026-09-15T00:00:00'); // <-- change this to her actual birthday, at midnight
+  const REVEAL_AT = new Date('2026-09-14T00:00:00'); // <-- change this to her actual birthday, at midnight
 
   const gate = document.getElementById('countdownGate');
   const dEl = document.getElementById('cdDays');
