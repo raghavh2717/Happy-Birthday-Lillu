@@ -151,15 +151,15 @@
   });
 
   // Swipe support (mobile)
-  let touchX = null;
-  document.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
-  document.addEventListener('touchend', (e) => {
-    if (touchX === null) return;
-    const dx = e.changedTouches[0].clientX - touchX;
-    if (dx > 60) prev();
-    if (dx < -60) next();
-    touchX = null;
-  }, { passive: true });
+  // let touchX = null;
+  // document.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  // document.addEventListener('touchend', (e) => {
+  //   if (touchX === null) return;
+  //   const dx = e.changedTouches[0].clientX - touchX;
+  //   if (dx > 60) prev();
+  //   if (dx < -60) next();
+  //   touchX = null;
+  // }, { passive: true });
 
   window.Nav = { goTo, next, prev, getCurrent, setNextEnabled };
 })();
