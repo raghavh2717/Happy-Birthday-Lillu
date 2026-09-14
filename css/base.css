@@ -1,0 +1,82 @@
+/* ==========================================================================
+   BASE — reset, global typography, ambient background
+   ========================================================================== */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html,body{
+  height:100%;
+  background:var(--void-950);
+  color:var(--blush-100);
+  font-family:var(--font-body);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{ background:var(--rose-500); color:#fff; }
+
+button{ font-family:inherit; }
+
+/* Visible keyboard focus everywhere */
+button:focus-visible, a:focus-visible{
+  outline:2px solid var(--gold-300);
+  outline-offset:3px;
+}
+
+/* Ambient dark-pink background wash, sits behind everything */
+#bg-canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(233,30,99,0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 110%, rgba(212,175,55,0.08), transparent 60%),
+    linear-gradient(160deg, var(--void-950) 0%, var(--void-900) 45%, var(--plum-850) 100%);
+  pointer-events:none;
+}
+
+.eyebrow{
+  font-family:var(--font-body);
+  font-size:0.72rem;
+  letter-spacing:0.42em;
+  text-transform:uppercase;
+  color:var(--rose-300);
+  margin-bottom:1.1rem;
+  opacity:0.9;
+}
+
+h1,h2{
+  font-family:var(--font-display);
+  font-weight:400;
+  letter-spacing:0.01em;
+  color:var(--blush-100);
+  text-shadow:0 4px 30px rgba(233,30,99,0.35);
+}
+h1{ font-size:clamp(2.4rem, 6.5vw, 4.6rem); line-height:1.05; }
+h2{ font-size:clamp(1.7rem, 4vw, 2.7rem); margin-bottom:1.1rem; }
+
+p.lead {
+	font-family: 'Cormorant Garamond', serif;
+	/* font-style: italic; */
+	font-size: clamp(1.05rem, 2vw, 1.4rem);
+	color: #fff;
+	line-height: 1.6;
+	/* max-width: 640px; */
+	margin: 1rem auto 0;
+	/* font-weight: 400; */
+}
+/* Ornamental heart divider used across content screens */
+.divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.7rem;
+  margin:0 auto 0.9rem;
+  width:min(220px, 60%);
+  opacity:0.8;
+}
+.divider .line{ flex:1; height:1px; background:linear-gradient(90deg, transparent, var(--gold-400), transparent); }
+.divider svg{ width:14px; height:14px; color:var(--gold-400); flex:none; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+}

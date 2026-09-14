@@ -1,0 +1,48 @@
+/* ==========================================================================
+   DESIGN TOKENS — Dark Pink Romantic Theme (brightened for readability)
+   Change these to re-theme the entire site from one place.
+   ========================================================================== */
+:root{
+  /* --- Core palette (romantic pink, lifted lighter than the original
+     near-black version so body text reads clearly at a glance) --- */
+  --void-950:#2e1020;          /* deepest background */
+  --void-900:#3f1530;          /* base background */
+  --plum-850:#521a3f;          /* elevated surfaces */
+  --plum-700:#69204e;          /* card surfaces */
+  --rose-600:#e91e63;          /* primary accent */
+  --rose-500:#ff3e7f;          /* primary accent, brighter */
+  --rose-400:#ff6fa0;          /* hover / lighter accent */
+  --rose-300:#ff9dc0;          /* soft accent / text highlight */
+  --blush-200:#ffd3e4;         /* light text on dark */
+  --blush-100:#fff5f9;         /* brightest text */
+  --gold-400:#d4af37;          /* metallic accent */
+  --gold-300:#e8cd7a;          /* lighter gold */
+  --text-body:#ffd9e8;         /* body text on dark bg — bright, easy to read */
+  --text-dim:#e6a9c4;          /* secondary text — still clearly legible */
+
+  /* --- Gradients --- */
+  --grad-primary: linear-gradient(135deg, var(--rose-600), var(--rose-400));
+  --grad-gold: linear-gradient(135deg, var(--rose-400), var(--gold-400));
+
+  /* --- Shadows / glow --- */
+  --shadow-soft: 0 20px 55px rgba(0,0,0,0.4);
+  --shadow-card: 0 25px 70px rgba(233,30,99,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  --glow-rose: 0 0 24px rgba(255,62,127,0.55);
+
+  /* --- Typography --- */
+  --font-display:'Italiana', serif;
+  /* --font-serif:'Cormorant Garamond', serif; */
+  --font-body:'Jost', sans-serif;
+
+  /* --- Layout --- */
+  --max-width: 920px;
+  --radius-lg: 28px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  /* --- Motion --- */
+  --ease-smooth: cubic-bezier(.22,.61,.36,1);
+  --dur-slow: 0.8s;
+  --dur-mid: 0.45s;
+  --dur-fast: 0.22s;
+}

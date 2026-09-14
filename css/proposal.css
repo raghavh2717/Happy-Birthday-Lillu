@@ -1,0 +1,84 @@
+/* ==========================================================================
+   SCREEN 7 — FINAL PROPOSAL (moving "No" button + celebration)
+   ========================================================================== */
+
+#proposalInner{ position:relative; }
+
+.question-stage{
+  position:relative;
+  height:min(220px, 32vh);
+  margin-top:2.4rem;
+}
+.qbtn{
+  font-family:var(--font-body);
+  font-weight:500;
+  font-size:1.05rem;
+  letter-spacing:0.03em;
+  padding:0.95rem 2.6rem;
+  border-radius:999px;
+  border:none;
+  cursor:pointer;
+  position:absolute;
+  top:50%;
+  transition:transform 0.18s ease, box-shadow 0.18s ease;
+}
+#yes-btn{
+  left:calc(50% - 150px);
+  transform:translateY(-50%);
+  background:var(--grad-primary);
+  color:#fff;
+  box-shadow:0 12px 30px rgba(233,30,99,0.45);
+  z-index:3;
+  animation:yes-breathe 1.8s ease-in-out infinite;
+}
+#yes-btn:hover{ transform:translateY(-50%) scale(1.08); }
+@keyframes yes-breathe{
+  0%,100%{ box-shadow:0 12px 30px rgba(233,30,99,0.45); }
+  50%{ box-shadow:0 16px 42px rgba(233,30,99,0.7); }
+}
+
+#no-btn{
+  left:calc(50% + 40px);
+  transform:translateY(-50%);
+  background:transparent;
+  color:var(--blush-200);
+  border:1px solid rgba(255,211,228,0.4);
+  z-index:2;
+  white-space:nowrap;
+  padding:0.95rem 1.9rem;
+}
+
+.question-hint{
+  margin-top:1.4rem;
+  font-size:0.82rem;
+  color:var(--text-dim);
+  letter-spacing:0.05em;
+}
+
+/* --- Celebration state, hidden until Yes is clicked --- */
+.proposal-celebration{
+  display:none;
+  opacity:0;
+  transform:scale(0.9);
+}
+.proposal-celebration.show{
+  display:block;
+  animation:celebration-in 0.7s var(--ease-smooth) forwards;
+}
+@keyframes celebration-in{
+  to{ opacity:1; transform:scale(1); }
+}
+
+.proposal-question.hide{ display:none; }
+
+.celebrate-mark{
+  font-size:clamp(2rem,5vw,3rem);
+  font-family:var(--font-display);
+  color:var(--rose-300);
+}
+
+.celebration-heart{
+  width:min(140px, 34vw);
+  margin:0 auto 0.6rem;
+  filter:drop-shadow(0 0 18px rgba(255,62,127,0.5));
+}

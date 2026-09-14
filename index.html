@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Happy Birthday, Drishti</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/loading.css">
+<link rel="stylesheet" href="css/effects.css">
+<link rel="stylesheet" href="css/screens.css">
+<link rel="stylesheet" href="css/proposal.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- ================= LOADING SCREEN ================= -->
+<div id="loading-screen">
+  <div class="loader-heart">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg>
+  </div>
+  <p class="loader-text">Loading our story<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
+</div>
+
+<!-- ================= COUNTDOWN GATE ================= -->
+<!-- Blocks the site until an exact date/time (set in js/countdown-gate.js).
+     If that time has already passed when the page loads, this is removed
+     immediately and never shown. -->
+<div id="countdownGate" class="countdown-gate">
+  <div class="countdown-inner">
+    <div class="eyebrow">Something's Coming</div>
+    <h1>Not yet, Drishti</h1>
+    <p class="lead">This opens the moment your birthday begins. Come back then. 💛</p>
+    <div class="countdown-grid">
+      <div class="countdown-box"><span class="num" id="cdDays">00</span><span class="label">days</span></div>
+      <div class="countdown-box"><span class="num" id="cdHours">00</span><span class="label">hours</span></div>
+      <div class="countdown-box"><span class="num" id="cdMinutes">00</span><span class="label">minutes</span></div>
+      <div class="countdown-box"><span class="num" id="cdSeconds">00</span><span class="label">seconds</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= AMBIENT / GLOBAL EFFECTS ================= -->
+<div id="bg-canvas"></div>
+<div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+<div class="fireworks-layer" id="fireworksLayer" aria-hidden="true"></div>
+
+<!-- ================= MUSIC PLAYER ================= -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    </svg>
+  </button>
+  <div class="music-bars" aria-hidden="true"><span></span><span></span><span></span></div>
+</div>
+<audio id="bgm" src="assets/audio/music.mp3" loop preload="auto"></audio>
+<audio id="bgmSecret" src="assets/audio/music-secret.mp3" loop preload="auto"></audio>
+<audio id="bgmFinal" src="assets/audio/music-final.mp3" loop preload="auto"></audio>
+
+<div class="progress-track" id="progressTrack" aria-hidden="true">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<button class="scroll-hint" id="scrollHint" aria-label="Scroll down for more">
+  <span>keep scrolling</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+
+<!-- ================= APP ================= -->
+<main id="app">
+
+  <!-- SCREEN 1 — WELCOME -->
+  <section class="screen active" id="screen-welcome" data-index="0">
+    <div class="aurora-bg" aria-hidden="true">
+      <span class="aurora-blob blob1"></span>
+      <span class="aurora-blob blob2"></span>
+      <span class="aurora-blob blob3"></span>
+    </div>
+    <div class="screen-inner">
+      <div class="glass-card reveal-up glow-pulse-border">
+        <svg class="crown-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 8l4 3 5-6 5 6 4-3-2 11H5L3 8zm2 13h14v2H5v-2z"/></svg>
+        <div class="eyebrow">Happy Birthday</div>
+        <h1 class="glow-name">Drishti</h1>
+        <p class="typewriter" id="typewriterText"></p>
+        <button class="begin-btn" id="beginBtn">
+          Begin Our Story
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 — BIRTHDAY CAKE -->
+  <section class="screen" id="screen-cake" data-index="1">
+    <div class="screen-inner">
+      <div class="eyebrow">Make a Wish</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Blow out the candles</h2>
+      <p class="lead">One more year of you, and every reason to celebrate. Tap the candles.</p>
+
+      <div class="cake-wrap" id="cakeWrap">
+        <svg viewBox="0 0 320 300" class="cake-svg" id="cakeSvg" aria-label="Birthday cake with three candles">
+          <ellipse cx="160" cy="268" rx="120" ry="16" fill="#c2185b" opacity="0.12"/>
+          <rect x="55" y="200" width="210" height="60" rx="10" fill="#ffb3cf"/>
+          <rect x="55" y="200" width="210" height="14" rx="7" fill="#fff0f6"/>
+          <rect x="75" y="150" width="170" height="55" rx="10" fill="#ff7fa8"/>
+          <rect x="75" y="150" width="170" height="12" rx="6" fill="#ffd9e7"/>
+          <rect x="100" y="105" width="120" height="50" rx="10" fill="#f0397a"/>
+          <rect x="100" y="105" width="120" height="12" rx="6" fill="#ffc2d6"/>
+          <g class="drip" fill="#fff0f6">
+            <path d="M85 150 q6 18 0 30 q-6 -12 0 -30 z"/>
+            <path d="M160 150 q6 22 0 34 q-6 -12 0 -34 z"/>
+            <path d="M225 150 q6 16 0 28 q-6 -12 0 -28 z"/>
+          </g>
+          <g class="candle-group" data-candle="1">
+            <rect x="112" y="72" width="10" height="34" rx="3" fill="#d4af37"/>
+            <g class="flame-group">
+              <ellipse cx="117" cy="66" rx="7" ry="12" fill="#ffcf6e" class="flame"/>
+              <ellipse cx="117" cy="69" rx="3.5" ry="6" fill="#ff8a3d"/>
+            </g>
+          </g>
+          <g class="candle-group" data-candle="2">
+            <rect x="155" y="60" width="10" height="46" rx="3" fill="#d4af37"/>
+            <g class="flame-group">
+              <ellipse cx="160" cy="54" rx="7" ry="12" fill="#ffcf6e" class="flame"/>
+              <ellipse cx="160" cy="57" rx="3.5" ry="6" fill="#ff8a3d"/>
+            </g>
+          </g>
+          <g class="candle-group" data-candle="3">
+            <rect x="198" y="72" width="10" height="34" rx="3" fill="#d4af37"/>
+            <g class="flame-group">
+              <ellipse cx="203" cy="66" rx="7" ry="12" fill="#ffcf6e" class="flame"/>
+              <ellipse cx="203" cy="69" rx="3.5" ry="6" fill="#ff8a3d"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="wish-hint" id="wishHint">tap each flame to blow it out</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 — OUR JOURNEY (timeline) -->
+  <section class="screen" id="screen-journey" data-index="2">
+    <div class="screen-inner">
+      <div class="eyebrow">Chapter One</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Our Journey</h2>
+      <p class="lead">Our story, mapped out in moments.</p>
+
+      <div class="timeline" id="timeline">
+        <div class="timeline-line" aria-hidden="true"></div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">The Start</span>
+            <h3>The beginning</h3>
+            <p>The day everything changed, without either of us fully realizing it yet.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">Getting Closer</span>
+            <h3>Getting closer</h3>
+            <p>Late texts turned into late calls, and strangers turned into something else entirely.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">Right Now</span>
+            <h3>Right now</h3>
+            <p>Here we are — and it already feels like something worth celebrating.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 4 — LOVE LETTER -->
+  <section class="screen" id="screen-letter" data-index="3">
+    <div class="screen-inner">
+      <div class="eyebrow">Chapter Two</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">A Little Love Letter</h2>
+      <div class="letter">
+        <p>Happy Birthday MY LOVE ❤️.</p>
+        <p>Baby pata hai apka ye birthday mere liye thoda zyada special hai kyunki ye pehla birthday hai jo main apke saath celebrate kar raha hoon. 🥹❤️</p>
+        <p>Jaane kabhi kabhi sochta hoon ki itne kam time mein ap mere liye itne important kaise ban gaye. Apki choti choti baatein apka care karna apka gussa apka pyaar sab kuch mere dil ke bohot kareeb hai.</p>
+        <p>Mere bche main bas itna chahta hoon ki ap hamesha khush raho. Apki smile kabhi kam na ho aur agar kabhi koi din thoda mushkil ho toh yaad rakhna ki main apke saath hoon. ❤️</p>
+        <p>I don't know what the future holds but I know one thing — I want to make many more birthdays special with you. 🫶🏻</p>
+        <p>Baby thank you meri life mein aane ke liye ❤️ </p>
+        <p>Happy Birthday jaane. ❤️</p>
+        <p><b>Always yours.</b> ❤️</p>
+      </div>
+      <div class="signoff">— with love, always<br>Yours Golu 😘</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5 — LOVE METER -->
+  <section class="screen" id="screen-lovemeter" data-index="4">
+    <div class="screen-inner">
+      <div class="eyebrow">Fair Warning</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Love Meter</h2>
+      <p class="lead">Measuring exactly how much you're loved. This may take a moment.</p>
+
+      <div class="lovemeter-wrap" id="lovemeterWrap">
+        <div class="lovemeter-track">
+          <div class="lovemeter-fill" id="lovemeterFill"></div>
+          <div class="lovemeter-marker" style="left:100%">
+            <span>100%</span>
+          </div>
+        </div>
+        <div class="lovemeter-readout">
+          <span class="lovemeter-percent" id="lovemeterPercent">0%</span>
+          <span class="lovemeter-status" id="lovemeterStatus">calibrating…</span>
+        </div>
+      </div>
+
+      <p class="lovemeter-footnote" id="lovemeterFootnote"></p>
+    </div>
+  </section>
+
+  <!-- SCREEN 6 — REASONS I LOVE YOU -->
+  <section class="screen" id="screen-reasons" data-index="5">
+    <div class="screen-inner">
+      <div class="eyebrow">Chapter Three</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Reasons I Love You</h2>
+      <div class="reasons-list">
+        <div class="reason"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span>the way your name lighting up my phone still makes me smile</span></div>
+        <div class="reason"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span>how effortless it's felt, right from the start</span></div>
+        <div class="reason"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span>your laugh, which I would happily listen to on repeat</span></div>
+        <div class="reason"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span>the way you make new feel this comfortable, this fast</span></div>
+        <div class="reason"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span>how much I look forward to whatever comes next, with you</span></div>
+        <div class="reason"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span>simply, that out of everyone — it's you</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 7 — MEMORY GALLERY -->
+  <section class="screen" id="screen-gallery" data-index="6">
+    <div class="screen-inner">
+      <div class="eyebrow">Chapter Four</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Memory Gallery</h2>
+      <p class="lead">So many little moments. Swipe or tap through them.</p>
+
+      <div class="slideshow" id="slideshow">
+        <div class="slideshow-track" id="slideshowTrack">
+          <figure class="slide-photo">
+            <div class="frame">
+              <img src="assets/images/photo1.jpg" alt="Memory one" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="placeholder-ph" style="display:none;">♥<br>add photo1.jpg</div>
+            </div>
+            <figcaption>the day it started</figcaption>
+          </figure>
+          <figure class="slide-photo">
+            <div class="frame">
+              <img src="assets/images/photo2.jpg" alt="Memory two" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="placeholder-ph" style="display:none;">♥<br>add photo2.jpg</div>
+            </div>
+            
+          </figure>
+          <figure class="slide-photo">
+            <div class="frame">
+              <img src="assets/images/photo3.jpg" alt="Memory three" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="placeholder-ph" style="display:none;">♥<br>add photo3.jpg</div>
+            </div>
+    
+          </figure>
+          <figure class="slide-photo">
+            <div class="frame">
+              <img src="assets/images/photo4.jpg" alt="Memory four" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="placeholder-ph" style="display:none;">♥<br>add photo4.jpg</div>
+            </div>
+        
+          </figure>
+          <figure class="slide-photo">
+            <div class="frame">
+              <img src="assets/images/photo5.png" alt="Memory five" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="placeholder-ph" style="display:none;">♥<br>add photo5.jpg</div>
+            </div>
+            
+          </figure>
+          <figure class="slide-photo">
+            <div class="frame">
+              <img src="assets/images/photo6.jpg" alt="Memory six" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="placeholder-ph" style="display:none;">♥<br>add photo6.jpg</div>
+            </div>
+           
+          </figure>
+        </div>
+
+        <button class="slide-arrow slide-prev" id="slidePrev" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="slide-arrow slide-next" id="slideNext" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <div class="slideshow-dots" id="slideshowDots"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 8 — OUR VIDEOS -->
+  <section class="screen" id="screen-videos" data-index="7">
+    <div class="screen-inner">
+      <div class="eyebrow">Chapter Five</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Our Video</h2>
+      <p class="lead">A moment that photos alone couldn't hold.</p>
+
+      <div class="video-single" id="videoSingle">
+        <span class="video-heart-deco tl" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg>
+        </span>
+        <span class="video-heart-deco br" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg>
+        </span>
+
+        <div class="video-frame">
+          <video id="mainVideo" muted loop playsinline preload="auto" poster="assets/images/video-poster1.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <source src="assets/videos/video1.mp4" type="video/mp4">
+          </video>
+          <div class="placeholder-ph" style="display:none;">🎬<br>add video1.mp4</div>
+          <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          </button>
+        </div>
+        <figcaption>a little birthday message</figcaption>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 9 — FINAL PROPOSAL -->
+  <section class="screen" id="screen-proposal" data-index="8">
+    <div class="screen-inner" id="proposalInner">
+
+      <div class="proposal-question" id="proposalQuestion">
+        <div class="eyebrow">One Last Thing</div>
+        <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+        <h2 class="shimmer-text">Will you let me keep<br>falling for you?</h2>
+        <p class="lead">There's only one answer I'm hoping for.</p>
+
+        <div class="question-stage" id="questionStage">
+          <button class="qbtn" id="yes-btn">Yes, I will</button>
+          <button class="qbtn" id="no-btn">No</button>
+        </div>
+        <div class="question-hint">(the no button is a little shy)</div>
+      </div>
+
+      <div class="proposal-celebration" id="proposalCelebration">
+        <svg class="celebration-heart" id="celebrationHeart" viewBox="0 0 100 90" fill="none">
+          <path d="M50 82S8 54 8 26C8 10 20 2 34 2c8 0 14 4 16 10 2-6 8-10 16-10 14 0 26 8 26 24 0 28-42 56-42 56z" stroke="url(#heartGrad)" stroke-width="3" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="heartGrad" x1="0" y1="0" x2="100" y2="90">
+              <stop offset="0%" stop-color="#ff3e7f"/>
+              <stop offset="100%" stop-color="#d4af37"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="eyebrow">She said it</div>
+        <h1 class="shimmer-text">Yes!</h1>
+        <p class="celebrate-mark">Happy Birthday, Drishti.</p>
+        <p class="lead">Here's to everything we've shared, and so much more still to come.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 10 — LOCKED NOTE (marriage proposal) -->
+  <section class="screen" id="screen-secret" data-index="9">
+    <div class="screen-inner">
+
+      <!-- Lock state: 4-digit password entry -->
+      <div class="lock-wrap" id="lockWrap">
+        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <div class="eyebrow">One More Thing</div>
+        <h2 class="shimmer-text">This one's locked</h2>
+        <p class="lead">You know the code. Enter it below.</p>
+
+        <div class="pin-row" id="pinRow">
+          <input type="tel" inputmode="numeric" maxlength="1" class="pin-digit" data-pin-index="0" aria-label="Digit 1">
+          <input type="tel" inputmode="numeric" maxlength="1" class="pin-digit" data-pin-index="1" aria-label="Digit 2">
+          <input type="tel" inputmode="numeric" maxlength="1" class="pin-digit" data-pin-index="2" aria-label="Digit 3">
+          <input type="tel" inputmode="numeric" maxlength="1" class="pin-digit" data-pin-index="3" aria-label="Digit 4">
+        </div>
+
+        <button class="continue-btn" id="unlockBtn">Unlock <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg></button>
+        <p class="pin-error" id="pinError">that's not quite it — try again</p>
+      </div>
+
+      <!-- Unlocked state: the actual marriage proposal note -->
+      <div class="secret-note" id="secretNote">
+        <svg class="ring-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="15" r="6"/><path d="M9.5 9 12 3l2.5 6" stroke-linejoin="round"/></svg>
+        <div class="eyebrow">The Real Question</div>
+        <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+        <h2 class="shimmer-text">Drishti, will you<br>marry me?</h2>
+        <p class="lead">Not a joke, not a dare — just the truest thing I know.<br> Someday, when the time is right, I want it to be you.</p>
+         <p class="lead">(I already know the answer but i want to hear it again and again 🥹❤️) If yes, kiss that ring  now 👀❤️</p>
+
+        <div class="secret-yes-row" id="secretYesRow">
+          <button class="continue-btn ripple-btn secret-yes-btn">Yes, I will 💍</button>
+          <button class="continue-btn ripple-btn secret-yes-btn">Yes, forever 💕</button>
+        </div>
+
+        <!-- Final reveal: appears after either Yes is tapped. There's no
+             No button here on purpose. -->
+        <div class="final-reveal" id="finalReveal">
+          <p class="secret-answer">She said yes. ✦</p>
+          <div class="final-photo-frame">
+            <img src="assets/images/marriage.png" alt="Us" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="placeholder-ph" style="display:none;">💍<br>add marriage.jpg</div>
+          </div>
+          <p class="final-message">This is AI, but we will make it reality one day.<br>Just be with me.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 11 — CLOSING NOTE -->
+  <section class="screen" id="screen-closing" data-index="10">
+    <div class="screen-inner">
+      <div class="eyebrow">One Last Thing</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Happy Birthday, Drishti</h2>
+
+      <div class="letter closing-letter">
+       
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>    If you've made it all the way here ❤️ thank you for being patient with every candle 🕯️ every locked screen 🔒 every silly dodging button 😂 — it was all just me finding new ways to say the same thing:</p>
+<p>I love you ❤️ and I'm endlessly glad you exist. 🥹🫶🏻</p>
+<p>Tum meri zindagi ka woh hissa ho jiske bina sab kuch adhura sa lagta hai. ❤️</p>
+<p>I hope this year hands you everything you deserve ✨ — mornings that don't feel rushed 🌸 people who see you clearly 👀❤️ and days that feel light even when life isn't. And through all of it I hope you feel me right there next to you 🫂 cheering for you louder than anyone. ❤️</p>
+<p>Bas yunhi mere saath rehna ❤️ baaki duniya se main lad lunga. 🫶🏻</p>
+<p>You make ordinary things feel like they matter. somehow it's all better with you in it. I don't think I'll ever fully get used to how lucky that makes me. 🥹❤️</p>
+<p>So here's to you Jaane ❤️ — today 🎂 this year ✨ and every one after it.</p>
+<p>Happy birthday my love. ❤️🎂🥂</p>
+<p>Whatever comes next I want to be there for it 🫶🏻 holding your hand 🤝❤️ the whole way.</p>
+<p>Har khushi mein tumhare saath ❤️ har mushkil mein tumhare paas. 🫂</p>
+<p>I love you endlessly. ❤️♾️<br>
+Happy Birthday meri jaan. 🥹❤️🎂💋</p>
+      </div>
+      <div class="signoff">— yours, always and completely</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 12 — FLOATING MEMORIES (finale) -->
+  <section class="screen" id="screen-floating" data-index="11">
+    <div class="screen-inner">
+      <div class="eyebrow">Forever</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">A Thousand Little Moments</h2>
+      <p class="lead">Every one of these led me here, to you.</p>
+
+      <div class="floating-photos" id="floatingPhotos" aria-hidden="false">
+        <div class="fp-item fp-1"><img src="assets/images/photo1.jpg" alt="Memory one" onerror="this.parentElement.classList.add('fp-empty')"></div>
+        <div class="fp-item fp-2"><img src="assets/images/photo2.jpg" alt="Memory two" onerror="this.parentElement.classList.add('fp-empty')"></div>
+        <div class="fp-item fp-3"><img src="assets/images/photo3.jpg" alt="Memory three" onerror="this.parentElement.classList.add('fp-empty')"></div>
+        <div class="fp-item fp-4"><img src="assets/images/photo4.jpg" alt="Memory four" onerror="this.parentElement.classList.add('fp-empty')"></div>
+        <div class="fp-item fp-5"><img src="assets/images/photo5.png" alt="Memory five" onerror="this.parentElement.classList.add('fp-empty')"></div>
+        <div class="fp-item fp-6"><img src="assets/images/photo6.jpg" alt="Memory six" onerror="this.parentElement.classList.add('fp-empty')"></div>
+      </div>
+
+      <p class="final-message">Happy birthday, my love. Here's to all the moments still waiting for us.</p>
+    </div>
+  </section>
+
+  <!-- SCREEN 13 — LIVE "US" COUNTER (keepsake) -->
+  <section class="screen" id="screen-counter" data-index="12">
+    <div class="screen-inner">
+      <div class="eyebrow">Just Us</div>
+      <div class="divider"><span class="line"></span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.2 2.3 4.5 6 4a5 5 0 0 1 6 2 5 5 0 0 1 6-2c3.7.5 5.5 4.2 4 7.8C19.5 16.4 12 21 12 21z"/></svg><span class="line"></span></div>
+      <h2 class="shimmer-text">Every Second Counts</h2>
+      <p class="lead">This is how long it's been. It's still counting, right now, as you read this.</p>
+
+      <div class="live-counter-card" id="liveCounterCard">
+        <div class="live-counter-grid">
+          <div class="live-counter-box"><span class="num" id="ucDays">0000</span><span class="label">days</span></div>
+          <div class="live-counter-box"><span class="num" id="ucHours">00</span><span class="label">hours</span></div>
+          <div class="live-counter-box"><span class="num" id="ucMinutes">00</span><span class="label">minutes</span></div>
+          <div class="live-counter-box"><span class="num" id="ucSeconds">00</span><span class="label">seconds</span></div>
+        </div>
+        <p class="counter-caption">of us — and still going</p>
+      </div>
+
+      <!-- <p class="screenshot-hint">📸 screenshot this moment, if you want to keep it</p> -->
+    </div>
+  </section>
+
+</main>
+
+<button class="continue-btn nav-back" id="backBtn" aria-label="Go back">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+  Back
+</button>
+
+<button class="continue-btn nav-next" id="nextBtn" aria-label="Continue">
+  Next
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="js/loading.js"></script>
+<script src="js/countdown-gate.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/scroll-hint.js"></script>
+<script src="js/cake.js"></script>
+<script src="js/love-meter.js"></script>
+<script src="js/slideshow.js"></script>
+<script src="js/video.js"></script>
+<script src="js/proposal.js"></script>
+<script src="js/secret.js"></script>
+<script src="js/live-counter.js"></script>
+<script src="js/music.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+/* ==========================================================================
+   RESPONSIVE — 320px through 4K
+   ========================================================================== */
+
+/* --- Small phones (320px+) --- */
+@media (max-width:400px){
+  .glass-card{ padding:1.8rem 1.2rem; }
+  .reasons-list{ grid-template-columns:1fr; }
+  #yes-btn{ left:calc(50% - 120px); padding:0.8rem 1.8rem; font-size:0.95rem; }
+  #no-btn{ left:calc(50% + 10px); padding:0.8rem 1.6rem; font-size:0.95rem; }
+  .blob1,.blob2,.blob3{ width:220px; height:220px; }
+  .slide-prev{ left:-6px; }
+  .slide-next{ right:-6px; }
+  .nav-back{ bottom:1.6vh; left:1.6vw; padding:0.6rem 1.1rem; font-size:0.68rem; }
+}
+
+/* --- Tablets --- */
+@media (min-width:641px) and (max-width:1024px){
+  .reasons-list{ grid-template-columns:1fr 1fr; }
+  .memory-grid{ grid-template-columns:repeat(3,1fr); }
+}
+
+/* --- Small phones, general (≤640px) --- */
+@media (max-width:640px){
+  .reasons-list{ grid-template-columns:1fr; }
+  .question-stage{ height:min(260px, 38vh); }
+  #yes-btn{ left:calc(50% - 140px); }
+  #no-btn{ left:calc(50% + 30px); }
+}
+
+/* --- Large / 4K displays: cap scale so content doesn't stretch too thin --- */
+@media (min-width:1800px){
+  .screen-inner{ max-width:1100px; }
+  h1{ font-size:5.6rem; }
+  h2{ font-size:3.4rem; }
+}
+@media (min-width:2600px){
+  html{ font-size:20px; }
+  .screen-inner{ max-width:1400px; }
+}
+
+/* --- Landscape phones: reduce vertical padding so content fits --- */
+@media (max-height:480px) and (orientation:landscape){
+  .screen{ padding:4vh 5vw 6vh; }
+  .glass-card{ padding:1.4rem 1.6rem; }
+  .cake-wrap{ width:min(220px, 40vh); }
+}
