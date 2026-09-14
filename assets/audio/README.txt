@@ -1,0 +1,1 @@
+Drop music.mp3 here for the main soundtrack (plays from the start up to the lock screen), music-secret.mp3 for the track that plays once she unlocks the note, and music-final.mp3 for the track that plays once the closing letter (the very last screen) appears.
